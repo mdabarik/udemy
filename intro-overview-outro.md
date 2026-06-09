@@ -56,3 +56,6 @@
   * \* **ভিজুয়াল:** `Next Steps` টাইটেলের নিচে ৩টি পয়েন্টার আসবে: 1. Mock Interviews 2. Build Projects 3. Apply for Roles.
   * \* **স্ক্রিপ্ট:** "জার্নি এখানেই শেষ নয়। এখন সময় এই নলেজগুলোকে মক ইন্টারভিউতে অ্যাপ্লাই করার এবং রেজ্যুমে বিল্ড করার। আপনাদের সবার ক্যারিয়ারের জন্য অনেক অনেক শুভকামনা। হ্যাপি কোডিং!"
   * \* **আউট্রো:** স্ক্রিন সাইলেন্টলি `Smooth Fade to Black` হয়ে যাবে।
+ 
+* **Bonus Lectures: Market other course & share coupon link and resources**
+
