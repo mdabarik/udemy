@@ -133,6 +133,14 @@
   .section-head span { color: var(--accent-text); font: 500 11px/1 "JetBrains Mono", monospace; }
   h2 { margin: 8px 0 0; font-size: clamp(24px, 4vw, 34px); line-height: 1.2; letter-spacing: -.025em; }
 
+  .focus-tabs { display: flex; gap: 8px; margin: -8px 0 24px; padding: 4px; width: fit-content; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+  .focus-tab { min-width: 180px; display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 10px 12px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 600 13px/1.2 "Inter", sans-serif; cursor: pointer; transition: background-color .2s, color .2s, box-shadow .2s; }
+  .focus-tab small { display: block; margin-top: 3px; font-size: 10px; font-weight: 500; opacity: .72; }
+  .focus-tab b { display: grid; place-items: center; min-width: 25px; height: 25px; padding: 0 7px; border: 1px solid var(--line); border-radius: 999px; font: 500 10px/1 "JetBrains Mono", monospace; }
+  .focus-tab[aria-selected="true"] { background: linear-gradient(135deg, rgba(139, 92, 246, .18), rgba(139, 92, 246, .08)); color: var(--text); box-shadow: inset 0 0 0 1px rgba(139, 92, 246, .25); }
+  .focus-tab[aria-selected="true"] b { color: var(--accent-text); border-color: rgba(139, 92, 246, .3); }
+  .course[hidden] { display: none; }
+
   .series-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
   .series { overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
   .series h3 { margin: 0; padding: 18px 20px; border-bottom: 1px solid var(--line); font-size: 15px; }
@@ -173,6 +181,8 @@
     .stats { margin-top: 16px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .stat { padding: 9px 10px; }
     .stat small { font-size: 9px; }
+    .focus-tabs { width: 100%; }
+    .focus-tab { min-width: 0; flex: 1; padding: 9px 10px; }
     .series-grid, .strategy-grid, .checklist { grid-template-columns: 1fr; }
     section { padding: 42px 0; }
   }
@@ -214,54 +224,58 @@
   <section>
     <div class="wrap">
       <div class="section-head"><span>01</span><h2>Course Roadmap</h2></div>
+      <div class="focus-tabs" role="tablist" aria-label="Course focus">
+        <button class="focus-tab" type="button" role="tab" aria-selected="true" data-focus-tab="core"><span>Core Focus<small>Java + Python</small></span><b>14</b></button>
+        <button class="focus-tab" type="button" role="tab" aria-selected="false" data-focus-tab="optional"><span>Optional Focus<small>C++</small></span><b>7</b></button>
+      </div>
       <div class="series-grid">
         <article class="series">
           <h3>Series 1 · Blind 75</h3>
-          <div class="course"><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
-          <div class="course"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
-          <div class="course"><span class="id">03</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Python</span><span class="chars">57 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">03</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Python</span><span class="chars">57 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 2 · LeetCode Top 150</h3>
-          <div class="course"><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
-          <div class="course"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
-          <div class="course"><span class="id">06</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Python</span><span class="chars">56 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">06</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Python</span><span class="chars">56 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 3 · CCI Patterns Part 1</h3>
-          <div class="course"><span class="id">07</span><span class="title">Cracking Coding Interview Patterns Part 1 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course"><span class="id">08</span><span class="title">Cracking Coding Interview Patterns Part 1 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course"><span class="id">09</span><span class="title">Cracking Coding Interview Patterns Part 1 in Python</span><span class="chars">51 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">07</span><span class="title">Cracking Coding Interview Patterns Part 1 in C++</span><span class="chars">48 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">08</span><span class="title">Cracking Coding Interview Patterns Part 1 in Java</span><span class="chars">49 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">09</span><span class="title">Cracking Coding Interview Patterns Part 1 in Python</span><span class="chars">51 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 4 · CCI Patterns Part 2</h3>
-          <div class="course"><span class="id">10</span><span class="title">Cracking Coding Interview Patterns Part 2 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course"><span class="id">11</span><span class="title">Cracking Coding Interview Patterns Part 2 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course"><span class="id">12</span><span class="title">Cracking Coding Interview Patterns Part 2 in Python</span><span class="chars">51 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">10</span><span class="title">Cracking Coding Interview Patterns Part 2 in C++</span><span class="chars">48 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">11</span><span class="title">Cracking Coding Interview Patterns Part 2 in Java</span><span class="chars">49 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">12</span><span class="title">Cracking Coding Interview Patterns Part 2 in Python</span><span class="chars">51 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 5 · CCI Patterns Part 3</h3>
-          <div class="course"><span class="id">13</span><span class="title">Cracking Coding Interview Patterns Part 3 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course"><span class="id">14</span><span class="title">Cracking Coding Interview Patterns Part 3 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course"><span class="id">15</span><span class="title">Cracking Coding Interview Patterns Part 3 in Python</span><span class="chars">51 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">13</span><span class="title">Cracking Coding Interview Patterns Part 3 in C++</span><span class="chars">48 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">14</span><span class="title">Cracking Coding Interview Patterns Part 3 in Java</span><span class="chars">49 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">15</span><span class="title">Cracking Coding Interview Patterns Part 3 in Python</span><span class="chars">51 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 6 · CCI Patterns Part 4</h3>
-          <div class="course"><span class="id">16</span><span class="title">Cracking Coding Interview Patterns Part 4 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course"><span class="id">17</span><span class="title">Cracking Coding Interview Patterns Part 4 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course"><span class="id">18</span><span class="title">Cracking Coding Interview Patterns Part 4 in Python</span><span class="chars">51 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">16</span><span class="title">Cracking Coding Interview Patterns Part 4 in C++</span><span class="chars">48 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">17</span><span class="title">Cracking Coding Interview Patterns Part 4 in Java</span><span class="chars">49 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">18</span><span class="title">Cracking Coding Interview Patterns Part 4 in Python</span><span class="chars">51 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 7 · Data Structures</h3>
-          <div class="course"><span class="id">19</span><span class="title">Data Structures in C++</span><span class="chars">22 ✓</span></div>
-          <div class="course"><span class="id">20</span><span class="title">Data Structures in Java</span><span class="chars">23 ✓</span></div>
-          <div class="course"><span class="id">21</span><span class="title">Data Structures in Python</span><span class="chars">25 ✓</span></div>
+          <div class="course" data-focus="optional" hidden><span class="id">19</span><span class="title">Data Structures in C++</span><span class="chars">22 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">20</span><span class="title">Data Structures in Java</span><span class="chars">23 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">21</span><span class="title">Data Structures in Python</span><span class="chars">25 ✓</span></div>
         </article>
       </div>
       <div class="note">“Questions” is removed from Series 2 titles to stay within the 60-character limit.</div>
@@ -350,6 +364,24 @@
   });
 
   setTheme(document.documentElement.dataset.theme || "dark");
+
+  const focusTabs = document.querySelectorAll("[data-focus-tab]");
+  const courseRows = document.querySelectorAll(".course[data-focus]");
+
+  function setFocus(focus) {
+    focusTabs.forEach((tab) => {
+      tab.setAttribute("aria-selected", String(tab.dataset.focusTab === focus));
+    });
+    courseRows.forEach((course) => {
+      course.hidden = course.dataset.focus !== focus;
+    });
+  }
+
+  focusTabs.forEach((tab) => {
+    tab.addEventListener("click", () => setFocus(tab.dataset.focusTab));
+  });
+
+  setFocus("core");
 </script>
 
 </body>
