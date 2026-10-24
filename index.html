@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>DSA Course Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Hind+Siliguri:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #121212;
+    --surface: #1a1a1a;
+    --line: #2a2a2a;
+    --text: #e0e0e0;
+    --muted: #8a8a8a;
+    --blue: #1a73e8;
+    --green: #198754;
+    --red: #dc3545;
+    --yellow: #eab308;
+    --orange: #f97316;
+    --gray: #424242;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 16px/1.6 "Inter", "Hind Siliguri", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  a { color: inherit; text-decoration: none; }
+  .mono { font-family: "JetBrains Mono", ui-monospace, monospace; }
+
+  /* nav */
+  nav {
+    position: sticky; top: 0; z-index: 10;
+    background: rgba(18, 18, 18, .8);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--line);
+  }
+  nav .wrap { display: flex; align-items: center; justify-content: space-between; height: 56px; }
+  .brand { font-weight: 700; letter-spacing: -.01em; display: flex; align-items: center; gap: 10px; }
+  .brand i { width: 10px; height: 10px; border-radius: 50%; background: var(--yellow); box-shadow: 0 0 12px var(--yellow); }
+  nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; font-size: 14px; color: var(--muted); }
+  nav ul a:hover { color: var(--text); }
+
+  /* hero */
+  header { padding: 112px 0 88px; position: relative; overflow: hidden; }
+  header::before {
+    content: ""; position: absolute; inset: -40% -10% auto auto; width: 620px; height: 620px;
+    background: radial-gradient(circle, rgba(26, 115, 232, .18), transparent 60%);
+    pointer-events: none;
+  }
+  .eyebrow { font-size: 13px; letter-spacing: .12em; text-transform: uppercase; color: var(--yellow); font-weight: 600; }
+  h1 { font-size: clamp(40px, 7vw, 76px); line-height: 1.02; letter-spacing: -.035em; margin: 16px 0 20px; font-weight: 800; }
+  h1 span { color: var(--muted); }
+  .lead { font-size: 18px; color: var(--muted); max-width: 520px; margin: 0; }
+  .stats { display: flex; gap: 48px; margin-top: 56px; flex-wrap: wrap; }
+  .stat b { display: block; font-size: 34px; font-weight: 700; letter-spacing: -.02em; }
+  .stat small { color: var(--muted); font-size: 13px; }
+
+  /* sections */
+  section { padding: 88px 0; border-top: 1px solid var(--line); }
+  .head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 40px; flex-wrap: wrap; }
+  h2 { font-size: 28px; letter-spacing: -.02em; margin: 0; font-weight: 700; }
+  .head p { margin: 0; color: var(--muted); font-size: 15px; }
+  .num { color: var(--muted); font-size: 13px; margin-right: 12px; font-weight: 500; }
+
+  /* roadmap */
+  .series { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .row { display: grid; grid-template-columns: 56px 1fr auto; align-items: center; gap: 16px; padding: 18px 22px; background: var(--bg); transition: background .2s; }
+  .row:hover { background: var(--surface); }
+  .row .p { color: var(--muted); font-size: 13px; }
+  .row h3 { margin: 0; font-size: 16px; font-weight: 600; }
+  .langs { display: flex; gap: 6px; }
+  .langs span { font-size: 12px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
+  .row.start { box-shadow: inset 3px 0 0 var(--yellow); }
+  .row.start .p { color: var(--yellow); }
+
+  /* colors */
+  .swatches { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  .sw { border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--surface); }
+  .sw .c { height: 84px; }
+  .sw div:last-child { padding: 14px 16px; }
+  .sw b { font-size: 14px; font-weight: 600; display: block; }
+  .sw small { color: var(--muted); font-size: 13px; }
+  .sw code { float: right; font-size: 12px; color: var(--muted); }
+
+  /* flow */
+  .flow { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; counter-reset: s; }
+  .step { padding: 20px 16px; border: 1px solid var(--line); border-radius: 14px; position: relative; }
+  .step::before { counter-increment: s; content: "0" counter(s); font-size: 12px; color: var(--muted); font-family: "JetBrains Mono", monospace; }
+  .step b { display: block; margin-top: 28px; font-size: 15px; font-weight: 600; line-height: 1.35; }
+  .step:last-child { border-color: rgba(25, 135, 84, .5); }
+  .step:last-child::after { content: ""; position: absolute; top: 20px; right: 16px; width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+
+  /* transitions */
+  .split { display: grid; grid-template-columns: 1.3fr 1fr; gap: 12px; }
+  .card { border: 1px solid var(--line); border-radius: 14px; padding: 26px; background: var(--surface); }
+  .card h3 { margin: 0 0 18px; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .tier { display: grid; grid-template-columns: 52px 1fr; gap: 14px; padding: 12px 0; border-top: 1px solid var(--line); align-items: baseline; }
+  .tier:first-of-type { border-top: 0; padding-top: 0; }
+  .tier .pct { font-weight: 700; font-size: 18px; }
+  .tier span { color: var(--text); font-size: 15px; }
+  .tier.no .pct, .tier.no span { color: var(--red); }
+  .tier.no span { opacity: .85; }
+  .db { display: flex; justify-content: space-between; padding: 11px 0; border-top: 1px solid var(--line); font-size: 15px; }
+  .db:first-of-type { border-top: 0; padding-top: 0; }
+  .db code { color: var(--yellow); font-size: 13px; }
+
+  /* docs */
+  .docs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+  .doc { display: block; padding: 20px; border: 1px solid var(--line); border-radius: 14px; transition: border-color .2s, transform .2s; }
+  .doc:hover { border-color: #555; transform: translateY(-2px); }
+  .doc b { display: block; font-weight: 600; font-size: 15px; }
+  .doc small { color: var(--muted); font-size: 13px; }
+  .doc em { float: right; font-style: normal; font-size: 11px; color: var(--muted); border: 1px solid var(--line); border-radius: 6px; padding: 1px 6px; }
+
+  footer { padding: 40px 0 56px; color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); }
+
+  @media (max-width: 860px) {
+    nav ul { display: none; }
+    .swatches { grid-template-columns: repeat(2, 1fr); }
+    .flow { grid-template-columns: repeat(2, 1fr); }
+    .split, .docs { grid-template-columns: 1fr; }
+    header { padding: 72px 0 64px; }
+    section { padding: 64px 0; }
+    .stats { gap: 32px; }
+  }
+  @media (max-width: 520px) {
+    .wrap { padding: 0 16px; }
+    .row { grid-template-columns: 1fr; gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="brand" href="#"><i></i>DSA Course Playbook</a>
+    <ul>
+      <li><a href="#roadmap">Roadmap</a></li>
+      <li><a href="#colors">Colors</a></li>
+      <li><a href="#flow">Video flow</a></li>
+      <li><a href="#motion">Motion</a></li>
+      <li><a href="#docs">Docs</a></li>
+    </ul>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap">
+    <div class="eyebrow">Udemy · Coding Interview</div>
+    <h1>21 courses.<br><span>One system.</span></h1>
+    <p class="lead">একই ডিজাইন, একই রং, একই ভিডিও ফ্লো। শুধু কোড আর ব্যাখ্যা প্রতিটা ভাষায় আলাদা।</p>
+    <div class="stats">
+      <div class="stat"><b>21</b><small>Courses</small></div>
+      <div class="stat"><b>7</b><small>Series</small></div>
+      <div class="stat"><b>3</b><small>C++ · Java · Python</small></div>
+      <div class="stat"><b>$5k+</b><small>Monthly goal</small></div>
+    </div>
+  </div>
+</header>
+
+<section id="roadmap">
+  <div class="wrap">
+    <div class="head"><h2><span class="num">01</span>Roadmap</h2><p>Phase ধরে প্রকাশ, প্রতিটায় ৩ ভাষা</p></div>
+    <div class="series">
+      <div class="row start"><span class="p">P1</span><h3>Blind 75</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P2</span><h3>LeetCode Top 150</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P3</span><h3>Coding Interview Patterns · Part 1</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P4</span><h3>Coding Interview Patterns · Part 2</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P5</span><h3>Coding Interview Patterns · Part 3</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P6</span><h3>Coding Interview Patterns · Part 4</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+      <div class="row"><span class="p">P7</span><h3>Data Structures</h3><div class="langs"><span>C++</span><span>Java</span><span>Python</span></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="colors">
+  <div class="wrap">
+    <div class="head"><h2><span class="num">02</span>Color system</h2><p>প্রতিটা রঙের একটাই মানে</p></div>
+    <div class="swatches">
+      <div class="sw"><div class="c" style="background:var(--yellow)"></div><div><code class="mono">#EAB308</code><b>Yellow</b><small>Active · pointer</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--blue)"></div><div><code class="mono">#1A73E8</code><b>Blue</b><small>Scanning · processing</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--green)"></div><div><code class="mono">#198754</code><b>Green</b><small>Found · accepted</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--red)"></div><div><code class="mono">#DC3545</code><b>Red</b><small>Error · not found</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--orange)"></div><div><code class="mono">#F97316</code><b>Orange</b><small>Visited · backtrack</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--text)"></div><div><code class="mono">#E0E0E0</code><b>White</b><small>Labels · static</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--gray)"></div><div><code class="mono">#424242</code><b>Gray</b><small>Inactive</small></div></div>
+      <div class="sw"><div class="c" style="background:var(--bg);border-bottom:1px solid var(--line)"></div><div><code class="mono">#121212</code><b>Background</b><small>Matte black</small></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="flow">
+  <div class="wrap">
+    <div class="head"><h2><span class="num">03</span>Video flow</h2><p>প্রতিটা প্রবলেম · ১০–১৫ মিনিট</p></div>
+    <div class="flow">
+      <div class="step"><b>Title</b></div>
+      <div class="step"><b>Problem &amp; visual</b></div>
+      <div class="step"><b>Brute force → optimal</b></div>
+      <div class="step"><b>Code walkthrough</b></div>
+      <div class="step"><b>Time &amp; space</b></div>
+      <div class="step"><b>Submit · accepted</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="motion">
+  <div class="wrap">
+    <div class="head"><h2><span class="num">04</span>Motion &amp; sound</h2><p>Ease-out, সবসময় একই নিয়মে</p></div>
+    <div class="split">
+      <div class="card">
+        <h3>Transitions</h3>
+        <div class="tier"><span class="pct" style="color:var(--green)">90%</span><span>Left → Right · Solid box push</span></div>
+        <div class="tier"><span class="pct" style="color:var(--yellow)">9%</span><span>Diagonal up · Top ↕ Bottom</span></div>
+        <div class="tier"><span class="pct" style="color:var(--orange)">1%</span><span>Right → Left · Deep dive</span></div>
+        <div class="tier no"><span class="pct">0%</span><span>Glitch · shake · random · diagonal down</span></div>
+      </div>
+      <div class="card">
+        <h3>Audio levels</h3>
+        <div class="db"><span>Voice over</span><code class="mono">−3 to −6 dB</code></div>
+        <div class="db"><span>Diagonal riser</span><code class="mono">−18 dB</code></div>
+        <div class="db"><span>Deep dive · box push</span><code class="mono">−20 dB</code></div>
+        <div class="db"><span>Left → Right whoosh</span><code class="mono">−22 dB</code></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="docs">
+  <div class="wrap">
+    <div class="head"><h2><span class="num">05</span>Docs</h2><p>বিস্তারিত নিয়ম</p></div>
+    <div class="docs">
+      <a class="doc" href="udemy_course_plan.md"><em>md</em><b>Course plan</b><small>২১টা কোর্স ও Udemy ৫০% নিয়ম</small></a>
+      <a class="doc" href="section-single-problem-planning.md"><em>md</em><b>Problem video blueprint</b><small>দৃশ্য ধরে ধরে ভিডিও</small></a>
+      <a class="doc" href="color-phycology-v2.md"><em>md</em><b>Color psychology</b><small>রং ও animation state</small></a>
+      <a class="doc" href="transitions-rules-dsa-course.md"><em>md</em><b>Transitions &amp; sound</b><small>মুভমেন্ট ও অডিও</small></a>
+      <a class="doc" href="intro-overview-outro.md"><em>md</em><b>Intro · overview · outro</b><small>কোর্সের শুরু ও শেষ</small></a>
+      <a class="doc" href="lower-third-callout.md"><em>md</em><b>Lower third &amp; callout</b><small>অন-স্ক্রিন লেবেল</small></a>
+      <a class="doc" href="example-lowerthird.html"><em>demo</em><b>Lower third</b><small>লাইভ উদাহরণ</small></a>
+      <a class="doc" href="example-callout.html"><em>demo</em><b>Callout</b><small>লাইভ উদাহরণ</small></a>
+      <a class="doc" href="transition-clearing-screen.html"><em>demo</em><b>Clean slate transition</b><small>লাইভ উদাহরণ</small></a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">DSA Course Playbook · private</div>
+</footer>
+
+</body>
+</html>
