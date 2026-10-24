@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Other Course Ideas · DSA Course Playbook</title>
+<script>
+  try {
+    document.documentElement.dataset.theme = localStorage.getItem("theme") ||
+      (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
+  } catch (_) { document.documentElement.dataset.theme = "dark"; }
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0f;
+    --surface: rgba(17, 21, 29, .84);
+    --surface-2: rgba(255, 255, 255, .045);
+    --line: rgba(255, 255, 255, .09);
+    --line-strong: rgba(255, 255, 255, .16);
+    --text: #f5f7fb;
+    --muted: #8d95a5;
+    --accent: #3b82f6;
+    --accent-text: #60a5fa;
+    --cyan: #22d3ee;
+    --green: #34d399;
+    --nav-bg: rgba(8, 10, 15, .72);
+    --shadow: rgba(0, 0, 0, .38);
+    color-scheme: dark;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #f0f4fb;
+    --surface: rgba(255, 255, 255, .84);
+    --surface-2: rgba(17, 23, 34, .045);
+    --line: rgba(21, 28, 40, .09);
+    --line-strong: rgba(21, 28, 40, .16);
+    --text: #111722;
+    --muted: #687083;
+    --accent-text: #2563eb;
+    --green: #16834b;
+    --nav-bg: rgba(244, 247, 252, .78);
+    --shadow: rgba(41, 50, 70, .13);
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 8% 4%, rgba(59, 130, 246, .15), transparent 30%),
+      radial-gradient(circle at 92% 42%, rgba(34, 211, 238, .09), transparent 28%),
+      var(--bg);
+    color: var(--text);
+    font: 15px/1.55 "DM Sans", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: .18;
+    background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 52px 52px;
+    mask-image: linear-gradient(to bottom, #000, transparent 82%);
+  }
+
+  .wrap { position: relative; z-index: 1; width: min(1040px, calc(100% - 40px)); margin: 0 auto; }
+
+  nav { position: sticky; top: 0; z-index: 20; padding-top: 12px; }
+  nav .wrap { min-height: 50px; padding: 0 8px 0 16px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border: 1px solid var(--line); border-radius: 15px; background: var(--nav-bg); box-shadow: 0 12px 36px var(--shadow); backdrop-filter: blur(20px) saturate(145%); }
+  .back { display: inline-flex; align-items: center; gap: 9px; color: var(--text); font-size: 14px; font-weight: 600; text-decoration: none; }
+  .back span { color: var(--accent-text); transition: transform .2s; }
+  .back:hover span { transform: translateX(-3px); }
+  .theme-switch { display: flex; gap: 3px; }
+  .theme-switch button { padding: 7px 11px; border: 1px solid transparent; border-radius: 9px; background: transparent; color: var(--muted); font: 600 11px/1 "DM Sans", sans-serif; cursor: pointer; }
+  .theme-switch button[aria-pressed="true"] { border-color: var(--line-strong); background: var(--surface-2); color: var(--text); }
+
+  header { padding: 16px 0 10px; }
+  .hero { overflow: hidden; padding: 30px; border: 1px solid var(--line); border-radius: 24px; background: linear-gradient(120deg, rgba(59, 130, 246, .14), transparent 46%), var(--surface); box-shadow: 0 18px 54px var(--shadow); backdrop-filter: blur(18px); }
+  .hero-top { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .eyebrow { color: var(--accent-text); font: 600 10px/1 "JetBrains Mono", monospace; letter-spacing: .12em; }
+  .status { display: inline-flex; align-items: center; gap: 7px; padding: 7px 10px; border: 1px solid rgba(52, 211, 153, .3); border-radius: 999px; background: rgba(52, 211, 153, .08); color: var(--green); font: 600 10px/1 "JetBrains Mono", monospace; letter-spacing: .06em; text-transform: uppercase; }
+  .status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: currentColor; box-shadow: 0 0 10px currentColor; }
+  h1 { margin: 12px 0 0; font-size: clamp(32px, 5vw, 54px); line-height: 1; letter-spacing: -.05em; }
+  .hero p { max-width: 580px; margin: 12px 0 0; color: var(--muted); font-size: 14px; }
+
+  main { padding-bottom: 32px; }
+  .series-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .series { position: relative; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: linear-gradient(145deg, rgba(59, 130, 246, .065), transparent 40%), var(--surface); box-shadow: 0 18px 48px var(--shadow); backdrop-filter: blur(16px); transition: transform .22s, border-color .22s; }
+  .series::before { content: ""; position: absolute; inset: 0 0 auto; height: 2px; background: linear-gradient(90deg, var(--accent), var(--cyan)); opacity: .72; }
+  .series:hover { transform: translateY(-2px); border-color: var(--line-strong); }
+  .series-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--line); }
+  .series h2 { margin: 0; font-size: 17px; line-height: 1.3; letter-spacing: -.02em; }
+  .soon { flex: 0 0 auto; padding: 5px 8px; border-radius: 999px; background: rgba(59, 130, 246, .1); color: var(--accent-text); font: 600 9px/1 "JetBrains Mono", monospace; text-transform: uppercase; }
+  .course { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: start; padding: 16px 20px; border-top: 1px solid var(--line); }
+  .course:first-of-type { border-top: 0; }
+  .id { color: var(--accent-text); font: 600 13px/1.55 "JetBrains Mono", monospace; }
+  .title { font-size: 15px; line-height: 1.5; }
+  .chars { color: var(--green); font: 600 12px/1.6 "JetBrains Mono", monospace; white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    .wrap { width: min(100% - 24px, 1040px); }
+    nav { padding-top: 8px; }
+    header { padding-top: 10px; }
+    .hero { padding: 24px 22px; border-radius: 20px; }
+    .series-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 480px) {
+    .back { font-size: 13px; }
+    .hero-top { align-items: flex-start; }
+    .status { padding: 6px 8px; }
+    .course { grid-template-columns: 28px 1fr; }
+    .chars { grid-column: 2; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="back" href="udemy_course_plan.html"><span>←</span> Course Planning</a>
+    <div class="theme-switch" aria-label="Theme">
+      <button type="button" data-theme-option="light">White</button>
+      <button type="button" data-theme-option="dark">Black</button>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="wrap hero">
+    <div class="hero-top">
+      <span class="eyebrow">RESEARCH / NOT FIXED</span>
+      <span class="status">Coming Soon</span>
+    </div>
+    <h1>Other Course Ideas</h1>
+    <p>Potential C++, Java and Python course series for future research.</p>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="series-grid">
+    <article class="series">
+      <div class="series-head"><h2>Series 1 · Blind 75</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
+    </article>
+
+    <article class="series">
+      <div class="series-head"><h2>Series 2 · LeetCode Top 150</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
+    </article>
+
+    <article class="series">
+      <div class="series-head"><h2>Series 3 · CCI Patterns Part 1</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">07</span><span class="title">Cracking Coding Interview Patterns Part 1 in C++</span><span class="chars">48 ✓</span></div>
+      <div class="course"><span class="id">08</span><span class="title">Cracking Coding Interview Patterns Part 1 in Java</span><span class="chars">49 ✓</span></div>
+      <div class="course"><span class="id">09</span><span class="title">Cracking Coding Interview Patterns Part 1 in Python</span><span class="chars">51 ✓</span></div>
+    </article>
+
+    <article class="series">
+      <div class="series-head"><h2>Series 4 · CCI Patterns Part 2</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">10</span><span class="title">Cracking Coding Interview Patterns Part 2 in C++</span><span class="chars">48 ✓</span></div>
+      <div class="course"><span class="id">11</span><span class="title">Cracking Coding Interview Patterns Part 2 in Java</span><span class="chars">49 ✓</span></div>
+      <div class="course"><span class="id">12</span><span class="title">Cracking Coding Interview Patterns Part 2 in Python</span><span class="chars">51 ✓</span></div>
+    </article>
+
+    <article class="series">
+      <div class="series-head"><h2>Series 5 · CCI Patterns Part 3</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">13</span><span class="title">Cracking Coding Interview Patterns Part 3 in C++</span><span class="chars">48 ✓</span></div>
+      <div class="course"><span class="id">14</span><span class="title">Cracking Coding Interview Patterns Part 3 in Java</span><span class="chars">49 ✓</span></div>
+      <div class="course"><span class="id">15</span><span class="title">Cracking Coding Interview Patterns Part 3 in Python</span><span class="chars">51 ✓</span></div>
+    </article>
+
+    <article class="series">
+      <div class="series-head"><h2>Series 6 · CCI Patterns Part 4</h2><span class="soon">Coming Soon</span></div>
+      <div class="course"><span class="id">16</span><span class="title">Cracking Coding Interview Patterns Part 4 in C++</span><span class="chars">48 ✓</span></div>
+      <div class="course"><span class="id">17</span><span class="title">Cracking Coding Interview Patterns Part 4 in Java</span><span class="chars">49 ✓</span></div>
+      <div class="course"><span class="id">18</span><span class="title">Cracking Coding Interview Patterns Part 4 in Python</span><span class="chars">51 ✓</span></div>
+    </article>
+  </div>
+</main>
+
+<script>
+  const themeButtons = document.querySelectorAll("[data-theme-option]");
+
+  function setTheme(theme) {
+    document.documentElement.dataset.theme = theme;
+    try { localStorage.setItem("theme", theme); } catch (_) {}
+    themeButtons.forEach((button) => {
+      button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme));
+    });
+  }
+
+  themeButtons.forEach((button) => {
+    button.addEventListener("click", () => setTheme(button.dataset.themeOption));
+  });
+
+  setTheme(document.documentElement.dataset.theme || "dark");
+</script>
+
+</body>
+</html>

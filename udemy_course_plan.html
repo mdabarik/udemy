@@ -178,8 +178,13 @@
   .focus-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   .focus-item { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255, 255, 255, .025); font-size: 14.5px; }
   .focus-item i { flex: 0 0 auto; display: grid; place-items: center; width: 18px; height: 18px; border: 1px solid rgba(52, 211, 153, .45); border-radius: 50%; color: var(--green); font: 700 10px/1 "DM Sans", sans-serif; }
-  .research-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 13px 12px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+  .focus-item b { color: var(--accent-text); font-weight: 600; }
+  .focus-item b.new { color: var(--green); }
+  .research-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 13px 12px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; text-decoration: none; transition: color .2s; }
   .research-row i { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 4px var(--surface-2); }
+  .research-row .open { margin-left: auto; color: var(--accent-text); font-size: 16px; transition: transform .2s; }
+  .research-row:hover { color: var(--text); }
+  .research-row:hover .open { transform: translate(2px, -2px); }
 
   .roadmap-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px; }
   .segmented { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
@@ -275,13 +280,13 @@
 <header>
   <div class="wrap">
     <div class="heading">
-      <div class="eyebrow">UDEMY · COMPLETE ROADMAP</div>
+      <div class="eyebrow">UDEMY · FINAL COURSE FOCUS</div>
       <h1>Udemy Course Planning</h1>
     </div>
     <div class="stats">
-      <div class="stat"><b>19</b><small>Total courses</small></div>
-      <div class="stat"><b>7</b><small>Series</small></div>
-      <div class="stat"><b>3</b><small>C++ · Java · Python</small></div>
+      <div class="stat"><b>5</b><small>Current courses</small></div>
+      <div class="stat"><b>3</b><small>Series</small></div>
+      <div class="stat"><b>3</b><small>Languages</small></div>
     </div>
   </div>
 </header>
@@ -289,75 +294,21 @@
 <main>
   <section>
     <div class="wrap">
-      <div class="section-head"><span>01</span><h2>Course Roadmap</h2></div>
+      <div class="section-head"><span>01</span><h2>Core Focus</h2></div>
       <aside class="focus-panel" aria-labelledby="focus-title">
         <div class="focus-panel-head">
-          <div><small>FOCUS ON</small><h3 id="focus-title">Final Course Focus</h3></div>
+          <div><small>FINAL SELECTION</small><h3 id="focus-title">Final Course Focus</h3></div>
           <span class="focus-count">5 courses</span>
         </div>
         <div class="focus-list">
-          <div class="focus-item"><i>✓</i><span>Blind 75 — Java</span></div>
-          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 — Java</span></div>
-          <div class="focus-item"><i>✓</i><span>Blind 75 — Python</span></div>
-          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 — Python</span></div>
-          <div class="focus-item"><i>✓</i><span>Animated Data Structures &amp; Algorithms — C++</span></div>
+          <div class="focus-item"><i>✓</i><span>Blind 75 - Java <b>(Upgrade)</b></span></div>
+          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 - Java <b>(Upgrade)</b></span></div>
+          <div class="focus-item"><i>✓</i><span>Blind 75 - Python <b class="new">(new)</b></span></div>
+          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 - Python <b class="new">(new)</b></span></div>
+          <div class="focus-item"><i>✓</i><span>Animated Data Structures &amp; Algorithms - C++ <b class="new">(new)</b></span></div>
         </div>
-        <div class="research-row"><i></i><span>Other Course Ideas — Research (Not Fixed)</span></div>
+        <a class="research-row" href="other_course_ideas.html" target="_blank" rel="noopener"><i></i><span>Other Course Ideas - Research (Not Fixed)</span><span class="open" aria-hidden="true">↗</span></a>
       </aside>
-      <div class="roadmap-toolbar">
-        <div class="segmented" role="tablist" aria-label="Course focus">
-          <button class="focus-tab" type="button" role="tab" aria-selected="true" data-focus-tab="core">Core Focus <small>Java + Python</small><b>12</b></button>
-          <button class="focus-tab" type="button" role="tab" aria-selected="false" data-focus-tab="optional">Optional Focus <small>C++</small><b>7</b></button>
-        </div>
-      </div>
-      <div class="series-grid" data-series-grid>
-        <article class="series">
-          <h3>Series 1 · Blind 75</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">03</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Python</span><span class="chars">57 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 2 · LeetCode Top 150</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">06</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Python</span><span class="chars">56 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 3 · CCI Patterns Part 1</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">07</span><span class="title">Cracking Coding Interview Patterns Part 1 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">08</span><span class="title">Cracking Coding Interview Patterns Part 1 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">09</span><span class="title">Cracking Coding Interview Patterns Part 1 in Python</span><span class="chars">51 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 4 · CCI Patterns Part 2</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">10</span><span class="title">Cracking Coding Interview Patterns Part 2 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">11</span><span class="title">Cracking Coding Interview Patterns Part 2 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">12</span><span class="title">Cracking Coding Interview Patterns Part 2 in Python</span><span class="chars">51 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 5 · CCI Patterns Part 3</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">13</span><span class="title">Cracking Coding Interview Patterns Part 3 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">14</span><span class="title">Cracking Coding Interview Patterns Part 3 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">15</span><span class="title">Cracking Coding Interview Patterns Part 3 in Python</span><span class="chars">51 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 6 · CCI Patterns Part 4</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">16</span><span class="title">Cracking Coding Interview Patterns Part 4 in C++</span><span class="chars">48 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">17</span><span class="title">Cracking Coding Interview Patterns Part 4 in Java</span><span class="chars">49 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">18</span><span class="title">Cracking Coding Interview Patterns Part 4 in Python</span><span class="chars">51 ✓</span></div>
-        </article>
-
-        <article class="series">
-          <h3>Series 7 · Data Structures</h3>
-          <div class="course" data-focus="optional" hidden><span class="id">19</span><span class="title">Data Structures in C++</span><span class="chars">22 ✓</span></div>
-        </article>
-      </div>
     </div>
   </section>
 
@@ -406,25 +357,6 @@
     </div>
   </section>
 
-  <section>
-    <div class="wrap">
-      <div class="section-head"><span>04</span><h2>Publishing Order</h2></div>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th>Phase</th><th>Series</th><th>Courses</th><th>Status</th></tr></thead>
-          <tbody>
-            <tr><td>Phase 1</td><td>Blind 75</td><td>01 → 03</td><td class="start">Start here</td></tr>
-            <tr><td>Phase 2</td><td>LeetCode Top 150</td><td>04 → 06</td><td></td></tr>
-            <tr><td>Phase 3</td><td>CCI Patterns Part 1</td><td>07 → 09</td><td></td></tr>
-            <tr><td>Phase 4</td><td>CCI Patterns Part 2</td><td>10 → 12</td><td></td></tr>
-            <tr><td>Phase 5</td><td>CCI Patterns Part 3</td><td>13 → 15</td><td></td></tr>
-            <tr><td>Phase 6</td><td>CCI Patterns Part 4</td><td>16 → 18</td><td></td></tr>
-            <tr><td>Phase 7</td><td>Data Structures</td><td>19</td><td>Finish here</td></tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 </main>
 
 <script>
@@ -443,35 +375,6 @@
   });
 
   setTheme(document.documentElement.dataset.theme || "dark");
-
-  const focusTabs = document.querySelectorAll("[data-focus-tab]");
-  const courseRows = document.querySelectorAll(".course[data-focus]");
-  const seriesCards = document.querySelectorAll(".series");
-  let activeFocus = "core";
-
-  function renderRoadmap() {
-    focusTabs.forEach((tab) => {
-      tab.setAttribute("aria-selected", String(tab.dataset.focusTab === activeFocus));
-    });
-
-    courseRows.forEach((course) => {
-      course.hidden = course.dataset.focus !== activeFocus;
-    });
-
-    seriesCards.forEach((series) => {
-      series.hidden = !Array.from(series.querySelectorAll(".course")).some((course) => !course.hidden);
-    });
-
-  }
-
-  focusTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      activeFocus = tab.dataset.focusTab;
-      renderRoadmap();
-    });
-  });
-
-  renderRoadmap();
 </script>
 
 </body>
