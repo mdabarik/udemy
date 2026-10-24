@@ -170,18 +170,25 @@
   .section-head span { flex: 0 0 auto; display: grid; place-items: center; width: 32px; height: 32px; border: 1px solid rgba(59, 130, 246, .28); border-radius: 9px; background: rgba(59, 130, 246, .1); color: var(--accent-text); font: 600 12px/1 "JetBrains Mono", monospace; }
   h2 { margin: 0; font-size: clamp(22px, 3vw, 30px); line-height: 1.15; letter-spacing: -.035em; }
 
-  .roadmap-toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 18px; }
+  .focus-panel { margin-bottom: 16px; padding: 20px; border: 1px solid var(--line); border-radius: 17px; background: linear-gradient(145deg, rgba(59, 130, 246, .08), transparent 46%), var(--surface-2); }
+  .focus-panel-head { display: flex; align-items: end; justify-content: space-between; gap: 16px; margin-bottom: 15px; }
+  .focus-panel-head small { display: block; margin-bottom: 5px; color: var(--accent-text); font: 600 10px/1 "JetBrains Mono", monospace; letter-spacing: .12em; }
+  .focus-panel-head h3 { margin: 0; font-size: 19px; letter-spacing: -.02em; }
+  .focus-count { padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font: 600 10px/1 "JetBrains Mono", monospace; white-space: nowrap; }
+  .focus-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .focus-item { display: flex; align-items: center; gap: 10px; min-width: 0; padding: 11px 12px; border: 1px solid var(--line); border-radius: 11px; background: rgba(255, 255, 255, .025); font-size: 14.5px; }
+  .focus-item i { flex: 0 0 auto; display: grid; place-items: center; width: 18px; height: 18px; border: 1px solid rgba(52, 211, 153, .45); border-radius: 50%; color: var(--green); font: 700 10px/1 "DM Sans", sans-serif; }
+  .research-row { display: flex; align-items: center; gap: 10px; margin-top: 12px; padding: 13px 12px 0; border-top: 1px solid var(--line); color: var(--muted); font-size: 13.5px; }
+  .research-row i { flex: 0 0 auto; width: 8px; height: 8px; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 4px var(--surface-2); }
+
+  .roadmap-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 18px; }
   .segmented { display: inline-flex; gap: 4px; padding: 4px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-2); }
-  .focus-tab, .course-type-tab { display: flex; align-items: center; justify-content: center; gap: 9px; padding: 9px 14px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 600 14.5px/1.2 "DM Sans", sans-serif; text-align: left; white-space: nowrap; cursor: pointer; transition: background .2s, color .2s, box-shadow .2s; }
+  .focus-tab { display: flex; align-items: center; justify-content: center; gap: 9px; padding: 9px 14px; border: 0; border-radius: 10px; background: transparent; color: var(--muted); font: 600 14.5px/1.2 "DM Sans", sans-serif; text-align: left; white-space: nowrap; cursor: pointer; transition: background .2s, color .2s, box-shadow .2s; }
   .focus-tab small { font-size: 12.5px; font-weight: 500; opacity: .85; }
-  .focus-tab b, .course-type-tab b { display: grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--surface-2); font: 600 11.5px/1 "JetBrains Mono", monospace; }
-  .focus-tab:hover, .course-type-tab:hover { color: var(--text); }
-  .focus-tab[aria-selected="true"], .course-type-tab[aria-selected="true"] { background: rgba(59, 130, 246, .16); color: var(--text); box-shadow: inset 0 0 0 1px rgba(59, 130, 246, .32); }
-  .focus-tab[aria-selected="true"] b, .course-type-tab[aria-selected="true"] b { background: rgba(59, 130, 246, .22); color: var(--accent-text); }
-  .course-type-tab { font-size: 14px; }
-  .roadmap-empty { margin-bottom: 24px; padding: 24px; border: 1px dashed var(--line); border-radius: 16px; background: var(--surface); text-align: center; }
-  .roadmap-empty b { display: block; margin-bottom: 4px; font-size: 14px; }
-  .roadmap-empty span { color: var(--muted); font-size: 12px; }
+  .focus-tab b { display: grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--surface-2); font: 600 11.5px/1 "JetBrains Mono", monospace; }
+  .focus-tab:hover { color: var(--text); }
+  .focus-tab[aria-selected="true"] { background: rgba(59, 130, 246, .16); color: var(--text); box-shadow: inset 0 0 0 1px rgba(59, 130, 246, .32); }
+  .focus-tab[aria-selected="true"] b { background: rgba(59, 130, 246, .22); color: var(--accent-text); }
   [hidden] { display: none !important; }
   .course[hidden] { display: none; }
 
@@ -231,7 +238,8 @@
     .stat small { font-size: 11.5px; }
     .roadmap-toolbar { flex-direction: column; align-items: stretch; }
     .segmented { display: flex; min-width: 0; }
-    .focus-tab, .course-type-tab { flex: 1 1 0; min-width: 0; padding: 9px 10px; }
+    .focus-list { grid-template-columns: 1fr; }
+    .focus-tab { flex: 1 1 0; min-width: 0; padding: 9px 10px; }
     .series-grid, .strategy-grid { grid-template-columns: 1fr; }
     .checklist { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     section > .wrap { padding: 22px; border-radius: 20px; }
@@ -243,7 +251,9 @@
     .stats { grid-template-columns: 1fr 1fr; }
     .stat:last-child { grid-column: 1 / -1; }
     .focus-tab small { display: none; }
-    .focus-tab, .course-type-tab { gap: 6px; padding: 8px 6px; font-size: 13.5px; white-space: normal; text-align: center; }
+    .focus-panel { padding: 16px; }
+    .focus-panel-head { align-items: center; }
+    .focus-tab { gap: 6px; padding: 8px 6px; font-size: 13.5px; white-space: normal; text-align: center; }
     .checklist { grid-template-columns: 1fr; }
     .course { grid-template-columns: 28px 1fr; }
     .course .chars { grid-column: 2; }
@@ -280,29 +290,38 @@
   <section>
     <div class="wrap">
       <div class="section-head"><span>01</span><h2>Course Roadmap</h2></div>
+      <aside class="focus-panel" aria-labelledby="focus-title">
+        <div class="focus-panel-head">
+          <div><small>FOCUS ON</small><h3 id="focus-title">Final Course Focus</h3></div>
+          <span class="focus-count">5 courses</span>
+        </div>
+        <div class="focus-list">
+          <div class="focus-item"><i>✓</i><span>Blind 75 — Java</span></div>
+          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 — Java</span></div>
+          <div class="focus-item"><i>✓</i><span>Blind 75 — Python</span></div>
+          <div class="focus-item"><i>✓</i><span>LeetCode Top Interview 150 — Python</span></div>
+          <div class="focus-item"><i>✓</i><span>Animated Data Structures &amp; Algorithms — C++</span></div>
+        </div>
+        <div class="research-row"><i></i><span>Other Course Ideas — Research (Not Fixed)</span></div>
+      </aside>
       <div class="roadmap-toolbar">
         <div class="segmented" role="tablist" aria-label="Course focus">
           <button class="focus-tab" type="button" role="tab" aria-selected="true" data-focus-tab="core">Core Focus <small>Java + Python</small><b>12</b></button>
           <button class="focus-tab" type="button" role="tab" aria-selected="false" data-focus-tab="optional">Optional Focus <small>C++</small><b>7</b></button>
         </div>
-        <div class="segmented" role="tablist" aria-label="Core course type" data-core-controls>
-          <button class="course-type-tab" type="button" role="tab" aria-selected="true" data-course-type="upgrade">Existing Upgrades <b>2</b></button>
-          <button class="course-type-tab" type="button" role="tab" aria-selected="false" data-course-type="new">New Courses <b>10</b></button>
-        </div>
       </div>
-      <div class="roadmap-empty" data-roadmap-empty hidden><b>No existing upgrades scheduled</b><span>Java and Python upgrade courses will appear here.</span></div>
       <div class="series-grid" data-series-grid>
         <article class="series">
           <h3>Series 1 · Blind 75</h3>
           <div class="course" data-focus="optional" hidden><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
-          <div class="course" data-focus="core" data-course-type="upgrade"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
           <div class="course" data-focus="core"><span class="id">03</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Python</span><span class="chars">57 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 2 · LeetCode Top 150</h3>
           <div class="course" data-focus="optional" hidden><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
-          <div class="course" data-focus="core" data-course-type="upgrade"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
+          <div class="course" data-focus="core"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
           <div class="course" data-focus="core"><span class="id">06</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Python</span><span class="chars">56 ✓</span></div>
         </article>
 
@@ -426,51 +445,28 @@
   setTheme(document.documentElement.dataset.theme || "dark");
 
   const focusTabs = document.querySelectorAll("[data-focus-tab]");
-  const courseTypeTabs = document.querySelectorAll(".course-type-tab");
   const courseRows = document.querySelectorAll(".course[data-focus]");
-  const coreControls = document.querySelector("[data-core-controls]");
-  const seriesGrid = document.querySelector("[data-series-grid]");
-  const roadmapEmpty = document.querySelector("[data-roadmap-empty]");
   const seriesCards = document.querySelectorAll(".series");
   let activeFocus = "core";
-  let activeCourseType = "upgrade";
 
   function renderRoadmap() {
     focusTabs.forEach((tab) => {
       tab.setAttribute("aria-selected", String(tab.dataset.focusTab === activeFocus));
     });
 
-    courseTypeTabs.forEach((tab) => {
-      tab.setAttribute("aria-selected", String(tab.dataset.courseType === activeCourseType));
-    });
-
-    coreControls.hidden = activeFocus !== "core";
-
     courseRows.forEach((course) => {
-      const courseType = course.dataset.courseType || "new";
-      course.hidden = course.dataset.focus !== activeFocus ||
-        (activeFocus === "core" && courseType !== activeCourseType);
+      course.hidden = course.dataset.focus !== activeFocus;
     });
 
     seriesCards.forEach((series) => {
       series.hidden = !Array.from(series.querySelectorAll(".course")).some((course) => !course.hidden);
     });
 
-    const hasVisibleCourses = Array.from(courseRows).some((course) => !course.hidden);
-    seriesGrid.hidden = !hasVisibleCourses;
-    roadmapEmpty.hidden = hasVisibleCourses;
   }
 
   focusTabs.forEach((tab) => {
     tab.addEventListener("click", () => {
       activeFocus = tab.dataset.focusTab;
-      renderRoadmap();
-    });
-  });
-
-  courseTypeTabs.forEach((tab) => {
-    tab.addEventListener("click", () => {
-      activeCourseType = tab.dataset.courseType;
       renderRoadmap();
     });
   });
