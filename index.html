@@ -4,343 +4,276 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex">
+<meta name="theme-color" content="#07090d">
 <title>DSA Course Playbook</title>
 <script>
   try {
     document.documentElement.dataset.theme = localStorage.getItem("theme") ||
       (matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark");
-  } catch (_) {
-    document.documentElement.dataset.theme = "dark";
-  }
+  } catch (_) { document.documentElement.dataset.theme = "dark"; }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #111111;
-    --surface: #191919;
-    --surface-hover: #1e1e1e;
-    --line: #2b2b2b;
-    --line-hover: #555555;
-    --text: #eeeeec;
-    --muted: #8d8d88;
-    --accent: #eab308;
-    --accent-text: #eab308;
-    --nav-bg: rgba(17, 17, 17, .82);
-    --shadow: rgba(0, 0, 0, .22);
+    --bg: #07090d;
+    --surface: rgba(18, 22, 30, .86);
+    --surface-hover: rgba(23, 28, 38, .94);
+    --line: rgba(255, 255, 255, .09);
+    --line-strong: rgba(255, 255, 255, .16);
+    --text: #f5f7fb;
+    --muted: #858d9e;
+    --bar: rgba(12, 15, 21, .76);
+    --shadow: rgba(0, 0, 0, .4);
     color-scheme: dark;
   }
 
   :root[data-theme="light"] {
-    --bg: #f5f5f2;
-    --surface: #ffffff;
-    --surface-hover: #fbfbf9;
-    --line: #deded9;
-    --line-hover: #9b9b94;
-    --text: #171715;
-    --muted: #6b6b66;
-    --accent-text: #875b00;
-    --nav-bg: rgba(245, 245, 242, .84);
-    --shadow: rgba(28, 28, 22, .08);
+    --bg: #eef1f6;
+    --surface: rgba(255, 255, 255, .78);
+    --surface-hover: rgba(255, 255, 255, .96);
+    --line: rgba(21, 28, 40, .09);
+    --line-strong: rgba(21, 28, 40, .16);
+    --text: #111722;
+    --muted: #687083;
+    --bar: rgba(250, 251, 253, .78);
+    --shadow: rgba(41, 50, 70, .13);
     color-scheme: light;
   }
 
   * { box-sizing: border-box; }
 
+  html, body { min-width: 320px; min-height: 100%; }
+
   body {
     margin: 0;
-    min-width: 320px;
-    background: var(--bg);
+    overflow-x: hidden;
+    background:
+      radial-gradient(circle at 8% 10%, rgba(70, 98, 255, .12), transparent 28%),
+      radial-gradient(circle at 92% 88%, rgba(151, 71, 255, .11), transparent 30%),
+      var(--bg);
     color: var(--text);
-    font: 15px/1.5 "Inter", system-ui, sans-serif;
+    font: 15px/1.45 "DM Sans", system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
-    transition: background-color .2s, color .2s;
   }
 
-  .wrap { width: min(1040px, calc(100% - 48px)); margin: 0 auto; }
-
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    border-bottom: 1px solid var(--line);
-    background: var(--nav-bg);
-    backdrop-filter: blur(14px);
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    opacity: .24;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: linear-gradient(to bottom, black, transparent 88%);
   }
 
-  nav .wrap {
-    height: 60px;
+  .shell { position: relative; z-index: 1; min-height: 100svh; padding: 16px; }
+
+  .topbar {
+    width: min(1180px, 100%);
+    height: 52px;
+    margin: 0 auto 14px;
+    padding: 0 10px 0 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
-  }
-
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: var(--text);
-    font-weight: 700;
-    letter-spacing: -.01em;
-  }
-
-  .brand i {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 12px rgba(234, 179, 8, .7);
-  }
-
-  .theme-switch {
-    display: flex;
-    gap: 2px;
-    padding: 3px;
+    gap: 18px;
     border: 1px solid var(--line);
-    border-radius: 10px;
-    background: var(--surface);
+    border-radius: 16px;
+    background: var(--bar);
+    box-shadow: 0 14px 34px var(--shadow);
+    backdrop-filter: blur(20px) saturate(150%);
   }
 
-  .theme-switch button {
-    border: 0;
-    border-radius: 7px;
-    padding: 6px 10px;
-    background: transparent;
-    color: var(--muted);
-    font: 600 11px/1 "Inter", sans-serif;
-    cursor: pointer;
-  }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.02em; }
+  .brand-mark { width: 24px; height: 24px; display: grid; place-items: center; border-radius: 8px; background: linear-gradient(135deg, #8b5cf6, #3b82f6); color: white; font: 500 9px/1 "JetBrains Mono", monospace; box-shadow: 0 6px 18px rgba(88, 80, 236, .3); }
+  .brand small { color: var(--muted); font-weight: 500; }
 
-  .theme-switch button[aria-pressed="true"] {
-    background: var(--text);
-    color: var(--bg);
-  }
-
-  main { padding: 48px 0; }
+  .theme-switch { display: flex; gap: 4px; }
+  .theme-switch button { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid transparent; border-radius: 10px; background: transparent; color: var(--muted); font: 600 15px/1 sans-serif; cursor: pointer; transition: .2s ease; }
+  .theme-switch button:hover { color: var(--text); border-color: var(--line); }
+  .theme-switch button[aria-pressed="true"] { color: var(--text); border-color: var(--line-strong); background: var(--surface); box-shadow: 0 6px 14px var(--shadow); }
 
   .cards {
+    width: min(1180px, 100%);
+    height: calc(100svh - 98px);
+    min-height: 580px;
+    margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    gap: 14px;
   }
 
   .card {
-    --card-accent: #eab308;
-    --card-glow: rgba(234, 179, 8, .14);
+    --accent: #8b5cf6;
+    --accent-rgb: 139, 92, 246;
     position: relative;
     isolation: isolate;
     overflow: hidden;
-    min-height: 270px;
     display: flex;
     flex-direction: column;
-    padding: 28px;
+    padding: 24px;
     border: 1px solid var(--line);
-    border-radius: 22px;
-    background: var(--surface);
+    border-radius: 24px;
+    background: linear-gradient(145deg, rgba(var(--accent-rgb), .07), transparent 38%), var(--surface);
+    box-shadow: 0 18px 50px var(--shadow), inset 0 1px 0 rgba(255, 255, 255, .04);
     color: var(--text);
     text-decoration: none;
-    box-shadow: 0 18px 50px var(--shadow);
-    transition: transform .25s, border-color .25s, background-color .25s, box-shadow .25s;
+    transition: transform .28s cubic-bezier(.2, .8, .2, 1), border-color .28s, box-shadow .28s, background-color .28s;
   }
 
-  .card:nth-child(2) { --card-accent: #3b82f6; --card-glow: rgba(59, 130, 246, .14); }
-  .card:nth-child(3) { --card-accent: #f97316; --card-glow: rgba(249, 115, 22, .14); }
-  .card:nth-child(4) { --card-accent: #22a65a; --card-glow: rgba(34, 166, 90, .14); }
+  .card:nth-child(1) { grid-column: span 7; --accent: #8b5cf6; --accent-rgb: 139, 92, 246; }
+  .card:nth-child(2) { grid-column: span 5; --accent: #22d3ee; --accent-rgb: 34, 211, 238; }
+  .card:nth-child(3) { grid-column: span 5; --accent: #fb923c; --accent-rgb: 251, 146, 60; }
+  .card:nth-child(4) { grid-column: span 7; --accent: #34d399; --accent-rgb: 52, 211, 153; }
 
   .card::before {
     content: "";
     position: absolute;
     z-index: -1;
-    inset: 0;
-    background: radial-gradient(circle at 100% 0, var(--card-glow), transparent 42%);
-    pointer-events: none;
+    width: 250px;
+    height: 250px;
+    top: -120px;
+    right: -90px;
+    border-radius: 50%;
+    background: rgba(var(--accent-rgb), .18);
+    filter: blur(42px);
+    transition: transform .35s ease, opacity .35s ease;
   }
 
-  .card::after {
-    content: "";
-    position: absolute;
-    inset: 0 auto auto 0;
-    width: 100%;
-    height: 3px;
-    background: linear-gradient(90deg, var(--card-accent), transparent 70%);
-  }
+  .card:hover { transform: translateY(-4px) scale(1.004); border-color: rgba(var(--accent-rgb), .42); box-shadow: 0 26px 70px var(--shadow), 0 0 0 1px rgba(var(--accent-rgb), .1); }
+  .card:hover::before { transform: scale(1.2) translate(-8px, 8px); }
+  .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
-  .card:hover {
-    transform: translateY(-5px);
-    border-color: var(--line-hover);
-    background: var(--surface-hover);
-    box-shadow: 0 24px 60px var(--shadow);
-  }
+  .card-top { display: flex; align-items: center; justify-content: space-between; }
+  .label { color: var(--accent); font: 500 10px/1 "JetBrains Mono", monospace; letter-spacing: .12em; text-transform: uppercase; }
+  .open { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; color: var(--muted); transition: .25s ease; }
+  .card:hover .open { transform: rotate(45deg); color: var(--accent); border-color: rgba(var(--accent-rgb), .5); background: rgba(var(--accent-rgb), .08); }
 
-  .card:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 3px;
-  }
+  .title-row { margin: auto 0; display: flex; align-items: center; justify-content: space-between; gap: 18px; }
+  h1 { max-width: 470px; margin: 0; font-size: clamp(22px, 2.8vw, 36px); line-height: 1.04; letter-spacing: -.045em; text-wrap: balance; }
+  .card:nth-child(2) h1, .card:nth-child(3) h1 { font-size: clamp(20px, 2.15vw, 29px); }
 
-  .number {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 30px;
-    color: var(--card-accent);
-    font: 500 12px/1 "JetBrains Mono", monospace;
-  }
-
-  .number::after {
-    content: "↗";
+  .icon {
+    flex: 0 0 auto;
+    width: 72px;
+    height: 72px;
     display: grid;
     place-items: center;
-    width: 32px;
-    height: 32px;
-    border: 1px solid var(--line);
-    border-radius: 50%;
-    color: var(--muted);
-    font: 500 15px/1 "Inter", sans-serif;
-    transition: transform .25s, color .25s, border-color .25s;
+    border: 1px solid rgba(var(--accent-rgb), .22);
+    border-radius: 22px;
+    background: rgba(var(--accent-rgb), .08);
+    color: var(--accent);
+    transform: rotate(3deg);
+  }
+  .icon svg { width: 34px; height: 34px; stroke: currentColor; }
+
+  .card-bottom { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; min-height: 40px; }
+  .metrics, .chips { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 18px; }
+  .metric b { display: block; font-size: 17px; line-height: 1.1; }
+  .metric small, .sub { color: var(--muted); font-size: 11px; }
+  .chip { padding: 5px 9px; border: 1px solid var(--line); border-radius: 999px; background: rgba(var(--accent-rgb), .035); color: var(--muted); font-size: 11px; white-space: nowrap; }
+
+  .progress { width: min(310px, 100%); }
+  .progress-head { margin-bottom: 8px; display: flex; justify-content: space-between; gap: 12px; font-size: 12px; }
+  .progress-head span:last-child { color: var(--accent); }
+  .track { height: 4px; overflow: hidden; border-radius: 999px; background: var(--line); }
+  .track i { display: block; width: 14%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, var(--accent), #a7f3d0); box-shadow: 0 0 14px rgba(var(--accent-rgb), .5); }
+
+  @media (max-width: 720px) {
+    .shell { padding: 10px; }
+    .topbar { height: 48px; margin-bottom: 10px; border-radius: 14px; }
+    .brand small { display: none; }
+    .cards { height: calc(100svh - 78px); min-height: 540px; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-rows: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .card, .card:nth-child(n) { grid-column: span 1; padding: 16px; border-radius: 18px; }
+    .title-row { margin: auto 0 16px; align-items: flex-start; }
+    h1, .card:nth-child(2) h1, .card:nth-child(3) h1 { font-size: clamp(16px, 4.5vw, 22px); line-height: 1.08; }
+    .icon { display: none; }
+    .metrics { gap: 10px; }
+    .metric b { font-size: 14px; }
+    .metric small { font-size: 9px; }
+    .chips { gap: 5px; }
+    .chip { padding: 4px 6px; font-size: 9px; }
+    .open { width: 28px; height: 28px; }
+    .card-bottom { min-height: 32px; }
   }
 
-  .card:hover .number::after { transform: translate(2px, -2px); color: var(--card-accent); border-color: var(--card-accent); }
-
-  h1 {
-    max-width: 390px;
-    margin: 0;
-    font-size: clamp(21px, 3vw, 27px);
-    line-height: 1.2;
-    letter-spacing: -.025em;
-  }
-
-  .details {
-    margin-top: auto;
-    padding-top: 34px;
-  }
-
-  .metrics {
-    display: flex;
-    gap: 24px;
-    flex-wrap: wrap;
-  }
-
-  .metric b {
-    display: block;
-    font-size: 18px;
-    line-height: 1.2;
-  }
-
-  .metric small,
-  .note {
-    color: var(--muted);
-    font-size: 12px;
-  }
-
-  .tags { display: flex; flex-wrap: wrap; gap: 7px; }
-
-  .tag {
-    padding: 5px 9px;
-    border: 1px solid var(--line);
-    border-radius: 999px;
-    background: var(--bg);
-    color: var(--muted);
-    font-size: 12px;
-  }
-
-  .status {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding-top: 14px;
-    border-top: 1px solid var(--line);
-  }
-
-  .status b { font-size: 14px; }
-  .status span { color: var(--accent-text); font-size: 12px; }
-
-  @media (max-width: 700px) {
-    .wrap { width: min(100% - 32px, 1040px); }
-    main { padding: 28px 0; }
-    .cards { grid-template-columns: 1fr; }
-    .card { min-height: 224px; padding: 24px; border-radius: 18px; }
+  @media (max-width: 370px) {
+    .cards { height: auto; min-height: 0; grid-template-columns: 1fr; grid-template-rows: none; }
+    .card, .card:nth-child(n) { min-height: 190px; }
   }
 </style>
 </head>
 <body>
-
-<nav>
-  <div class="wrap">
-    <div class="brand"><i></i>DSA Course Playbook</div>
+<div class="shell">
+  <nav class="topbar">
+    <div class="brand"><span class="brand-mark">DSA</span><span>Course Playbook <small>/ production OS</small></span></div>
     <div class="theme-switch" aria-label="Theme">
-      <button type="button" data-theme-option="light">White</button>
-      <button type="button" data-theme-option="dark">Black</button>
+      <button type="button" data-theme-option="light" aria-label="White theme" title="White theme">☀</button>
+      <button type="button" data-theme-option="dark" aria-label="Black theme" title="Black theme">◐</button>
     </div>
-  </div>
-</nav>
+  </nav>
 
-<main>
-  <div class="wrap cards">
+  <main class="cards">
     <a class="card" href="udemy_course_plan.html" target="_blank" rel="noopener">
-      <span class="number">01</span>
-      <h1>Udemy Course Planning</h1>
-      <div class="details metrics">
-        <div class="metric"><b>21</b><small>Courses</small></div>
-        <div class="metric"><b>7</b><small>Series</small></div>
-        <div class="metric"><b>3</b><small>Languages</small></div>
+      <div class="card-top"><span class="label">01 · Plan</span><span class="open">↗</span></div>
+      <div class="title-row">
+        <h1>Udemy Course Planning</h1>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 5.5h16M4 12h16M4 18.5h10"/><circle cx="18" cy="18.5" r="2"/></svg></span>
+      </div>
+      <div class="card-bottom metrics">
+        <span class="metric"><b>21</b><small>Courses</small></span>
+        <span class="metric"><b>7</b><small>Series</small></span>
+        <span class="metric"><b>3</b><small>Languages</small></span>
       </div>
     </a>
 
     <a class="card" href="section-single-problem-planning.md" target="_blank" rel="noopener">
-      <span class="number">02</span>
-      <h1>Recording Strategies (Software &amp; Tools)</h1>
-      <div class="details">
-        <div class="tags">
-          <span class="tag">10–15 min</span>
-          <span class="tag">6-step flow</span>
-          <span class="tag">Voice −3 to −6 dB</span>
-        </div>
+      <div class="card-top"><span class="label">02 · Record</span><span class="open">↗</span></div>
+      <div class="title-row">
+        <h1>Recording Strategies <span class="sub">Software &amp; Tools</span></h1>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><rect x="5" y="3" width="10" height="14" rx="5"/><path d="M2.5 11a7.5 7.5 0 0 0 15 0M10 18.5V22m-4 0h8"/></svg></span>
       </div>
+      <div class="card-bottom chips"><span class="chip">10–15 min</span><span class="chip">6-step flow</span><span class="chip">−3 to −6 dB</span></div>
     </a>
 
     <a class="card" href="transitions-rules-dsa-course.md" target="_blank" rel="noopener">
-      <span class="number">03</span>
-      <h1>Which Combination of Software Is Being Used</h1>
-      <div class="details">
-        <div class="tags">
-          <span class="tag">Manim</span>
-          <span class="tag">Premiere Pro</span>
-          <span class="tag">After Effects</span>
-        </div>
+      <div class="card-top"><span class="label">03 · Stack</span><span class="open">↗</span></div>
+      <div class="title-row">
+        <h1>Which Combination of Software Is Being Used</h1>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="m3 12 9 5 9-5M3 16l9 5 9-5"/></svg></span>
       </div>
+      <div class="card-bottom chips"><span class="chip">Manim</span><span class="chip">Premiere Pro</span><span class="chip">After Effects</span></div>
     </a>
 
     <a class="card" href="complete_plan.md" target="_blank" rel="noopener">
-      <span class="number">04</span>
-      <h1>Current Progress Measurement</h1>
-      <div class="details status">
-        <div><b>Blind 75 · C++</b><div class="note">Current focus</div></div>
-        <span>Phase 1</span>
+      <div class="card-top"><span class="label">04 · Track</span><span class="open">↗</span></div>
+      <div class="title-row">
+        <h1>Current Progress Measurement</h1>
+        <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5"><path d="M4 20V10m6 10V4m6 16v-7m4 7H2"/><path d="m3 7 6-4 6 6 6-5"/></svg></span>
+      </div>
+      <div class="card-bottom progress">
+        <div class="progress-head"><span>Blind 75 · C++</span><span>Phase 1</span></div>
+        <div class="track"><i></i></div>
       </div>
     </a>
-  </div>
-</main>
+  </main>
+</div>
 
 <script>
   const themeButtons = document.querySelectorAll("[data-theme-option]");
-
   function setTheme(theme) {
     document.documentElement.dataset.theme = theme;
     try { localStorage.setItem("theme", theme); } catch (_) {}
-    themeButtons.forEach((button) => {
-      button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme));
-    });
+    themeButtons.forEach((button) => button.setAttribute("aria-pressed", String(button.dataset.themeOption === theme)));
   }
-
-  themeButtons.forEach((button) => {
-    button.addEventListener("click", () => setTheme(button.dataset.themeOption));
-  });
-
+  themeButtons.forEach((button) => button.addEventListener("click", () => setTheme(button.dataset.themeOption)));
   setTheme(document.documentElement.dataset.theme || "dark");
 </script>
-
 </body>
 </html>
