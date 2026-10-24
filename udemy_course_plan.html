@@ -240,8 +240,8 @@
       </div>
       <div class="core-controls" data-core-controls>
         <div class="course-type-tabs" role="tablist" aria-label="Core course type">
-          <button class="course-type-tab" type="button" role="tab" aria-selected="false" data-course-type="upgrade">Existing Course Upgrades <span>0</span></button>
-          <button class="course-type-tab" type="button" role="tab" aria-selected="true" data-course-type="new">New Courses <span>14</span></button>
+          <button class="course-type-tab" type="button" role="tab" aria-selected="false" data-course-type="upgrade">Existing Course Upgrades <span>2</span></button>
+          <button class="course-type-tab" type="button" role="tab" aria-selected="true" data-course-type="new">New Courses <span>12</span></button>
         </div>
       </div>
       <div class="roadmap-empty" data-roadmap-empty hidden><b>No existing upgrades scheduled</b><span>Java and Python upgrade courses will appear here.</span></div>
@@ -249,14 +249,14 @@
         <article class="series">
           <h3>Series 1 · Blind 75</h3>
           <div class="course" data-focus="optional" hidden><span class="id">01</span><span class="title">Blind 75: Algorithms Coding Interview Questions in C++</span><span class="chars">54 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
+          <div class="course" data-focus="core" data-course-type="upgrade"><span class="id">02</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Java</span><span class="chars">55 ✓</span></div>
           <div class="course" data-focus="core"><span class="id">03</span><span class="title">Blind 75: Algorithms Coding Interview Questions in Python</span><span class="chars">57 ✓</span></div>
         </article>
 
         <article class="series">
           <h3>Series 2 · LeetCode Top 150</h3>
           <div class="course" data-focus="optional" hidden><span class="id">04</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in C++</span><span class="chars">53 ✓</span></div>
-          <div class="course" data-focus="core"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
+          <div class="course" data-focus="core" data-course-type="upgrade"><span class="id">05</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Java</span><span class="chars">54 ✓</span></div>
           <div class="course" data-focus="core"><span class="id">06</span><span class="title">LeetCode Top 150: Algorithms Coding Interview in Python</span><span class="chars">56 ✓</span></div>
         </article>
 
@@ -388,6 +388,7 @@
   const coreControls = document.querySelector("[data-core-controls]");
   const seriesGrid = document.querySelector("[data-series-grid]");
   const roadmapEmpty = document.querySelector("[data-roadmap-empty]");
+  const seriesCards = document.querySelectorAll(".series");
   let activeFocus = "core";
   let activeCourseType = "new";
 
@@ -402,13 +403,19 @@
 
     coreControls.hidden = activeFocus !== "core";
 
-    const showEmpty = activeFocus === "core" && activeCourseType === "upgrade";
-    seriesGrid.hidden = showEmpty;
-    roadmapEmpty.hidden = !showEmpty;
-
     courseRows.forEach((course) => {
-      course.hidden = showEmpty || course.dataset.focus !== activeFocus;
+      const courseType = course.dataset.courseType || "new";
+      course.hidden = course.dataset.focus !== activeFocus ||
+        (activeFocus === "core" && courseType !== activeCourseType);
     });
+
+    seriesCards.forEach((series) => {
+      series.hidden = !Array.from(series.querySelectorAll(".course")).some((course) => !course.hidden);
+    });
+
+    const hasVisibleCourses = Array.from(courseRows).some((course) => !course.hidden);
+    seriesGrid.hidden = !hasVisibleCourses;
+    roadmapEmpty.hidden = hasVisibleCourses;
   }
 
   focusTabs.forEach((tab) => {
